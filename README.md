@@ -12,7 +12,11 @@ A sincronização com Google Sheets permanece pendente da publicação do Apps S
 
 ## Publicação
 
-Em Settings > Pages, selecione Deploy from a branch, branch main, pasta /(root). O arquivo .nojekyll mantém os arquivos estáticos.
+1. Extraia o pacote e envie os arquivos para a raiz de https://github.com/danielbeltrami89/financas-web, usando Upload files. Envie o conteúdo extraído; o GitHub não extrai o ZIP.
+2. Confirme o envio em Commit changes na branch main.
+3. Em Settings > Pages, selecione Deploy from a branch, branch main, pasta /(root), e Save.
+
+O arquivo .nojekyll mantém os arquivos estáticos. O endereço esperado é https://danielbeltrami89.github.io/financas-web/; ele só passa a funcionar depois de o GitHub concluir a publicação.
 
 O endereço final do Pages deve ser registrado na variável PAGES_URL do serviço para permitir a leitura pelo navegador e o retorno seguro após editar. config.js contém apenas o endereço público da API.
 
