@@ -5,3 +5,5 @@
 .entry:disabled{opacity:1;cursor:default}.entry:disabled:hover{background:transparent}#read-only-note{font-size:11px;color:#66775c}
 
 .return-link{font-size:12px;font-weight:550;color:#446b4b;padding:10px 0}
+
+.ledger-heading>div>span{display:block;font-size:11px;color:#6a7a5e;margin-top:3px}.ledger-heading #export-excel{white-space:nowrap;flex-shrink:0;font-size:12px;padding:9px 12px;min-height:40px}

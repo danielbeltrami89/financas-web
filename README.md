@@ -8,7 +8,7 @@ A interface consulta a API existente em https://caixa-simples-empresa.wiryflea6.
 
 Adicionar e editar abre a área autenticada do serviço. Após salvar ou excluir, o navegador retorna ao GitHub Pages. A verificação da conta responsável é feita no servidor, e os visitantes podem consultar os dados públicos. Não há chaves, senhas ou tokens no navegador ou neste repositório.
 
-A sincronização com Google Sheets permanece pendente da publicação do Apps Script. Publicar no Pages não ativa essa sincronização automaticamente.
+O botão Baixar Excel consulta os dados atuais e baixa um arquivo .xlsx com todos os lançamentos e um resumo mensal. Os dados ficam no banco do aplicativo; não há conexão com Google Sheets.
 
 ## Publicação
 
