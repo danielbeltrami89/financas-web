@@ -20,3 +20,9 @@
 .entry-body .entry-note{font-size:10px;margin-top:2px}
 .entry-amount,.entry-group .entry-amount{font-size:22px;font-weight:750;line-height:1.2}
 @media(max-width:350px){.entry,.entry-group .entry{grid-template-columns:24px minmax(0,1fr) auto;gap:6px;padding-left:10px;padding-right:10px}.entry-icon{width:24px;height:24px}.entry-amount,.entry-group .entry-amount{font-size:20px}}
+
+/* Keep creation within reach while browsing a long ledger. */
+.floating-add{position:fixed;right:calc(20px + env(safe-area-inset-right));bottom:calc(20px + env(safe-area-inset-bottom));z-index:20;display:grid;place-items:center;width:56px;height:56px;padding:0;border:1px solid #174b3c;border-radius:50%;background:#174b3c;color:#fff;font-size:34px;font-weight:400;line-height:1;box-shadow:0 5px 18px #19372d35;touch-action:manipulation}
+.floating-add:hover{background:#24614c}
+main{padding-bottom:calc(88px + env(safe-area-inset-bottom))}
+body:has(dialog[open]) .floating-add{display:none}

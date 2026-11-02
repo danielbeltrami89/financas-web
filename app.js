@@ -31,18 +31,24 @@ function renderGroups(rows,totals){
     return `<section class="entry-group ${type}" aria-label="${title}"><div class="entry-group-heading"><h3>${title}</h3><strong>${esc(money(totals[type]))}</strong></div>${group.length?group.map(renderEntry).join(''):`<div class="empty">${type==='income'?'Nenhuma entrada neste mês.':'Nenhuma saída neste mês.'}</div>`}</section>`;
   }).join('')+'</div>';
 }
+function updateFloatingAdd(){
+ const button=$('#new-entry'),bounds=button.getBoundingClientRect();
+ const visible=!button.hidden&&bounds.bottom>0&&bounds.top<window.innerHeight&&bounds.right>0&&bounds.left<window.innerWidth;
+ $('#floating-new-entry').hidden=!loaded||visible;
+}
 function render(){
   for(const button of document.querySelectorAll('[data-ledger-view]')){const active=button.dataset.ledgerView===ledgerView;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));}
   $('#export-excel').disabled=!loaded||exporting;
   $('#period').value=month;
   const label=new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric'}).format(new Date(`${month}-15T12:00:00`)).replace(' de ',' ');
   $('#month-label').textContent=label.charAt(0).toUpperCase()+label.slice(1);
-  $('#new-entry').href=editorURL();
+  $('#new-entry').href=editorURL();$('#floating-new-entry').href=$('#new-entry').href;
   const rows=records.filter(row=>row.month===month).sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(a.sourceOrder??999)-(b.sourceOrder??999)||a.id.localeCompare(b.id));
   const totals=summarize(rows);
   for(const key of ['income','expense','balance'])$('#'+key).textContent=loaded?money(totals[key]):'—';
   $('#count').textContent=loaded?`${rows.length} ${rows.length===1?'lançamento':'lançamentos'}`:'Carregando…';
   $('#entries').innerHTML=!loaded?'<div class="empty">Carregando seus lançamentos…</div>':ledgerView==='separate'?renderGroups(rows,totals):rows.length?rows.map(renderEntry).join(''):'<div class="empty"><strong>Nenhum lançamento neste mês.</strong>Use “Novo lançamento” para começar.</div>';
+  updateFloatingAdd();
 }
 
 async function load(){
@@ -69,4 +75,10 @@ $('#next-month').addEventListener('click',()=>changeMonth(1));
 $('#period').addEventListener('change',event=>selectMonth(event.target.value));
 $('#retry').addEventListener('click',load);
 window.addEventListener('focus',load);
+if('IntersectionObserver' in window){
+ new window.IntersectionObserver(updateFloatingAdd).observe($('#new-entry'));
+}else{
+ window.addEventListener('scroll',updateFloatingAdd,{passive:true});
+ window.addEventListener('resize',updateFloatingAdd);
+}
 render();load();
